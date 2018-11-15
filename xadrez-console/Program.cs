@@ -4,9 +4,13 @@ using xadrez;
 
 namespace xadrez_console {
     class Program {
-        static void Main(string[] args) { 
+        static void Main(string[] args) {
 
-            try {
+            PosicaoXadrez pos = new PosicaoXadrez('c', 7);
+
+            Console.WriteLine(pos.toPosicao());
+
+            /*try {
                 Tabuleiro tab = new Tabuleiro(8, 8);
 
                 tab.colocarPeca(new Torre(tab, Cor.Preta), new Posicao(0, 0));
@@ -16,7 +20,7 @@ namespace xadrez_console {
                 Tela.imprimirTabuleiro(tab);
             } catch (TabuleiroException e) {
                 Console.WriteLine(e.Message);
-            }
+            }*/
 
             Console.ReadLine();
         }
