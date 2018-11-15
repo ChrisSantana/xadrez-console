@@ -21,6 +21,7 @@ namespace xadrez_console {
             for (int i = 0; i < tabuleiro.colunas; i++) {
                 Console.Write(" " + Alfabeto.getLetra(i));
             }
+            Console.WriteLine();
         }
 
         public static void imprimirTabuleiro(Tabuleiro tabuleiro, bool[,] possicoesPossiveis) {
@@ -48,6 +49,7 @@ namespace xadrez_console {
                 Console.Write(" " + Alfabeto.getLetra(i));
             }
             Console.BackgroundColor = fundoOriginal;
+            Console.WriteLine();
         }
 
         public static PosicaoXadrez lerPosicaoXadrez() {
