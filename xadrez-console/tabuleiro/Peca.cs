@@ -11,5 +11,9 @@
             this.cor = cor;
             this.qtdMovimento = 0;
         }
+
+        public void incrementarQtdMovimentos() {
+            qtdMovimento++;
+        }
     }
 }
