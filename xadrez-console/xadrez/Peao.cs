@@ -41,7 +41,7 @@ namespace xadrez {
                     mat[pos.linha, pos.coluna] = true;
                 }
             } else {
-                pos.definirValores(posicao.linha = 1, posicao.coluna);
+                pos.definirValores(posicao.linha + 1, posicao.coluna);
                 if (tab.posicaoValida(pos) && livre(pos)) {
                     mat[pos.linha, pos.coluna] = true;
                 }
