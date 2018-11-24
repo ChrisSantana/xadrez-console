@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 
 using tabuleiro;
+using xadrez_console;
+
 namespace xadrez {
     class PartidaDeXadrez {
         public Tabuleiro tab { get; private set; }
@@ -12,6 +14,7 @@ namespace xadrez {
         public HashSet<Peca> capturadas;
         public bool xeque { get; private set; }
         public Peca vulneravelEnPassant { get; private set; }
+        public Peca pecaPromocao { get; set; }
 
         public PartidaDeXadrez() {
             tab = new Tabuleiro(8,8);
@@ -20,6 +23,7 @@ namespace xadrez {
             terminada = false;
             xeque = false;
             vulneravelEnPassant = null;
+            pecaPromocao = null;
             capturadas = new HashSet<Peca>();
             pecas = new HashSet<Peca>();
             colocarPecas();
@@ -52,7 +56,7 @@ namespace xadrez {
                 tab.colocarPeca(T, destinoT);
             }
 
-            // #jogadaespecial roque pequeno
+            // #jogadaespecial en passant
             if (p is Peao) {
                 if (origem.coluna != destino.coluna && pecaCapturada == null) {
                     Posicao posP;
@@ -120,6 +124,19 @@ namespace xadrez {
                 desfazMovimento(origem, destino, pecaCapturada);
                 throw new TabuleiroException("Você não pode se colocar em xeque!");
             }
+
+            Peca p = tab.peca(destino);
+
+            // # joagadaespecial promocao
+            if (p is Peao) {
+                if ((p.cor == Cor.Branca && destino.linha == 0 ) || (p.cor == Cor.Preta && destino.linha == 7)) {
+                    p = tab.retirarPeca(destino);
+                    pecas.Remove(p);
+                    Tela.definirPecaPromocao(this);
+                    tab.colocarPeca(pecaPromocao, destino);
+                    pecas.Add(pecaPromocao);
+                }
+            }
             
             if (estaEmXeque(adversaria(jogadorAtual))) {
                 xeque = true;
@@ -133,8 +150,6 @@ namespace xadrez {
                 turno++;
                 mudaJogador();
             }
-
-            Peca p = tab.peca(destino);
 
             // #jogadaespecial En Passant
             if (p is Peao && destino.linha == origem.linha - 2 || destino.linha == origem.linha + 2) {

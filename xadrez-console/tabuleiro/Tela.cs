@@ -24,6 +24,53 @@ namespace xadrez_console {
             }
         }
 
+        public static void definirPecaPromocao(PartidaDeXadrez partida) {
+            char charPeca = 'P';
+            bool escolheu = false;
+
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Informe o tipo de peça a ser promovida:");
+            Console.WriteLine("D - Dama");
+            Console.WriteLine("T - Torre");
+            Console.WriteLine("B - Bispo");
+            Console.WriteLine("C - Cavalo");
+            Console.Write("Informe a letra em maiúsculo: ");
+
+            while (!escolheu) {
+                try {
+                    charPeca = char.Parse(Console.ReadLine());
+
+                    switch (charPeca) {
+                        case 'D':
+                            partida.pecaPromocao = new Dama(partida.tab, partida.jogadorAtual);
+                            escolheu = true;
+                            break;
+                        case 'T':
+                            partida.pecaPromocao = new Torre(partida.tab, partida.jogadorAtual);
+                            escolheu = true;
+                            break;
+                        case 'B':
+                            partida.pecaPromocao = new Bispo(partida.tab, partida.jogadorAtual);
+                            escolheu = true;
+                            break;
+                        case 'C':
+                            partida.pecaPromocao = new Cavalo(partida.tab, partida.jogadorAtual);
+                            escolheu = true;
+                            break;
+                        default:
+                            Console.WriteLine("Peça escolhida inválida!");
+                            Console.Write("Informe a letra em maiúsculo: ");
+                            break;
+                    }                   
+                } catch {
+                    Console.WriteLine("Peça informada inválida!");
+                    Console.Write("Informe a letra em maiúsculo: ");
+                }
+            }
+            Console.WriteLine();
+        }
+
         public static void imprimirPecasCapturadas(PartidaDeXadrez partida) {
             Console.WriteLine("Peças capturadas: ");
             Console.Write("Brancas: ");
